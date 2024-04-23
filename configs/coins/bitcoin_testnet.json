@@ -22,10 +22,10 @@
         "package_name": "backend-bitcoin-testnet",
         "package_revision": "satoshilabs-1",
         "system_user": "bitcoin",
-        "version": "25.0",
-        "binary_url": "https://bitcoincore.org/bin/bitcoin-core-25.0/bitcoin-25.0-x86_64-linux-gnu.tar.gz",
+        "version": "27.0",
+        "binary_url": "https://bitcoincore.org/bin/bitcoin-core-27.0/bitcoin-27.0-x86_64-linux-gnu.tar.gz",
         "verification_type": "sha256",
-        "verification_source": "33930d432593e49d58a9bff4c30078823e9af5d98594d2935862788ce8a20aec",
+        "verification_source": "2a6974c5486f528793c79d42694b5987401e4a43c97f62b1383abf35bcee44a8",
         "extract_command": "tar -C backend --strip 1 -xf",
         "exclude_files": ["bin/bitcoin-qt"],
         "exec_command_template": "{{.Env.BackendInstallPath}}/{{.Coin.Alias}}/bin/bitcoind -datadir={{.Env.BackendDataPath}}/{{.Coin.Alias}}/backend -conf={{.Env.BackendInstallPath}}/{{.Coin.Alias}}/{{.Coin.Alias}}.conf -pid=/run/{{.Coin.Alias}}/{{.Coin.Alias}}.pid",
@@ -42,8 +42,8 @@
         },
         "platforms": {
             "arm64": {
-                "binary_url": "https://bitcoincore.org/bin/bitcoin-core-25.0/bitcoin-25.0-aarch64-linux-gnu.tar.gz",
-                "verification_source": "3a7bdd959a0b426624f63f394f25e5b7769a5a2f96f8126dcc2ea53f3fa5212b"
+                "binary_url": "https://bitcoincore.org/bin/bitcoin-core-27.0/bitcoin-27.0-aarch64-linux-gnu.tar.gz",
+                "verification_source": "cb35e250ae9d0328aa90e7aad0b877ed692597420a1092e8ab1a5dd756209722"
             }
         }
     },
@@ -58,14 +58,18 @@
             "parse": true,
             "mempool_workers": 8,
             "mempool_sub_workers": 2,
-            "block_addresses_to_keep": 300,
+            "block_addresses_to_keep": 10000,
             "xpub_magic": 70617039,
             "xpub_magic_segwit_p2sh": 71979618,
             "xpub_magic_segwit_native": 73342198,
             "slip44": 1,
             "additional_params": {
-                "golomb_filter_p": 20,
-                "mempool_filter_scripts": "taproot"
+                "block_golomb_filter_p": 20,
+                "block_filter_scripts": "taproot-noordinals",
+                "block_filter_use_zeroed_key": true,
+                "mempool_golomb_filter_p": 20,
+                "mempool_filter_scripts": "taproot",
+                "mempool_filter_use_zeroed_key": false
             }
         }
     },
